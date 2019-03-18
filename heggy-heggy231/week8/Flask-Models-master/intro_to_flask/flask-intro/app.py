@@ -10,8 +10,15 @@ app = Flask(__name__)
 @app.route('/')
 #Function that returns the page: renders "Hello! Heggy!!"
 def index():
-  # return (takes string) determines what to render on the screen!
-  return 'Hello! YOU!!!!!!'
+  my_list = ['Hey', 'Fun', 'Friday', 'Day']
+  # return (only takes string) determines what to render on the screen!
+  return my_list[2] #Works!!
+  # return my_list # not a string therefore doesnot work!! 
+
+# dynamic routing! insert <variable>
+@app.route('/sayhi/<username>') #When someone goes /sayhi/heggy
+def hello(username): # pass the var and do this
+  return f'Hello {username}'
 
 # Run the app when the program starts!!
 if __name__ == '__main__':
