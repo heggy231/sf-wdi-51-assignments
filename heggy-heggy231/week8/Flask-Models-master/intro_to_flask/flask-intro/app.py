@@ -1,5 +1,5 @@
 # Import Flask class from flask libraray (!! flask library lower case, class name uppercase Flask)
-from flask import Flask
+from flask import Flask, render_template
 
 # initialize an instance of the Flask class.
 #  This starts the website!!!
@@ -9,10 +9,11 @@ app = Flask(__name__)
 #  Could be instead "my-website.com/about" or anything more++
 @app.route('/')
 #Function that returns the page: renders "Hello! Heggy!!"
-def index():
-  my_list = ['Hey', 'Fun', 'Friday', 'Day']
+def home():
+  # passing Hello World!! string data to index.html 
+  return render_template('index.html', greeting="Hello World!!")
   # return (only takes string) determines what to render on the screen!
-  return my_list[2] #Works!!
+  # return my_list[2] #Works!!
   # return my_list # not a string therefore doesnot work!! 
 
 # dynamic routing! insert <variable>

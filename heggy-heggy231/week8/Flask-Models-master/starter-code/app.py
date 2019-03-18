@@ -47,10 +47,16 @@ def r(sub=None):
 		sub_id = int(sub)
 # Find the right Sub
 		sub = models.Sub.get(models.Sub.id == sub_id) # sub.id gets created implicitly
-		posts = sub.posts #  sub = ForeignKeyField(Sub, backref="posts") 
+		
 
 # Define the form for Posts
 		form = PostForm()
+		posts = sub.posts
+
+		if not sub.posts:
+			 #  sub = ForeignKeyField(Sub, backref="posts") 
+			return render_template("sub.html", sub=sub, form=form)
+
 		if form.validate_on_submit():
 			models.Post.create(
 				user=form.user.data.strip(),
@@ -62,6 +68,9 @@ def r(sub=None):
 # error message
 # return redirect(f'/r/{sub_id}')
 			return redirect("/r/{}".format(sub_id))
+
+			
+
 		return render_template("sub.html", sub=sub, posts=posts, form=form)
 
 # Add a reference to your new form to the appropriate function in app.py. Comments should be attached to posts so think about where this form reference should be.
