@@ -20,6 +20,7 @@ class Sub(Model):
     order_by = ('-timestamp',)
 
 class Post(Model):
+  # everything has a id, sub store the id of BigSub >> it will add posts 
   sub = ForeignKeyField(Sub, backref="posts") 
   timestamp = DateTimeField(default=datetime.datetime.now)
   user = CharField()

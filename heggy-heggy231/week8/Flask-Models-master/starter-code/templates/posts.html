@@ -2,9 +2,11 @@
 
 {% block content %}
 <h1>Posts</h1>
+<!-- posts here is what I passed from app.py `return render_template('posts.html', posts=posts)`-->
 {% for post in posts %}
 <article class="message is-primary">
     <div class="message-header">
+        <!-- url is the example of post.id http://localhost:8000/posts/1 -->
         <a href={{url_for('posts', id=post.id)}}>{{post.title}}</a>
 
         <p>By: {{post.user}}</p>
@@ -12,7 +14,8 @@
     <div class="message-body">
         {{post.text}}
     </div>
-    <a href="/r/{{post.sub}}">r/{{post.sub}} What is this??</a>
+    <!-- post.sub (find me the parent (sub) that nests post put id that connect them together from sub: http://localhost:8000/r/2)is backref that subject own its post -->
+    <a href="/r/{{post.sub}}">r/{{post.sub}}</a>
 </article>
 {% endfor %}
 {% endblock %}

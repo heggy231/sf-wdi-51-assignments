@@ -88,6 +88,7 @@ def posts(id=None):
 	# when there is no specific id 
 	if id == None:
 		posts = models.Post.select().limit(100)
+		# property posts =  post value, models.Post.select().limit(100)
 		return render_template('posts.html', posts=posts)
 	else:
 		post_id = int(id)
