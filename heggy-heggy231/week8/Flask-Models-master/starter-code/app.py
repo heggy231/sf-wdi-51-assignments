@@ -85,6 +85,7 @@ def r(sub=None):
 @app.route('/posts/')
 @app.route('/posts/<id>', methods=['GET', 'POST'])
 def posts(id=None):
+	# when there is no specific id 
 	if id == None:
 		posts = models.Post.select().limit(100)
 		return render_template('posts.html', posts=posts)
@@ -116,12 +117,11 @@ def comments(id=None):
 		return render_template('comments.html', comments=comments)
 	else:
 		comment_id = int(id)
-		comment = models.Comment.get(models.Comment.id == Comment_id)
+		comment = models.Comment.get(models.Comment.id == comment_id)
 		# get the post comments
-		comments = post.comments  # post = ForeignKeyField(Post, backref="comments") This give you access to everything in comments!!!
 		
 		# right side post = models.Post.get(models.Post.id == post_id)
-		return render_template('comment.html', comment=comment, comments=comments, form=form)
+		return render_template('comment.html', comment=comment)
 
 if __name__ == '__main__':
 	models.initialize()

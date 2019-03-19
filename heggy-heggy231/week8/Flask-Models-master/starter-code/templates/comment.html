@@ -11,30 +11,10 @@
         <div class="message-body">
             {{comment.comment}}
         </div>
-        <a>r/{{comment.post}}</a>
+        <a href="/posts/{{comment.post}}">back</a>
     </article>
     
-    <section>
-        <h2>Add a Comment to this Post</h2>
-        <form method="POST" action="" novalidate>
-            {{ form.hidden_tag() }}
-
-            <div class="field">
-            {{ form.title.label }}
-            {{ form.title(class_="input") }}
-            </div>
-            <div class="field">
-            {{ form.comment.label }}
-            {{ form.comment(class_="textarea") }}
-            </div>
-            <div class="field">
-            {{ form.username.label("Post By:") }}
-            {{ form.username(class_="input") }}
-            </div>
-
-            {{ form.submit(class_="button") }}
-        </form>
-    </section>
+    
 
 {% endblock %}
 
