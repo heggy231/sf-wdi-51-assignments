@@ -54,5 +54,5 @@ class Comment(Model):
 #  and close the connection.
 def initialize():
   DATABASE.connect()
-  DATABASE.create_tables([Sub, Post], safe=True)
+  DATABASE.create_tables([Sub, Post, Comment], safe=True)
   DATABASE.close()

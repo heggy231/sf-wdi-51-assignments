@@ -3,6 +3,7 @@ from flask import render_template, flash, redirect, url_for
 
 from forms import SubForm, PostForm, CommentForm
 import models
+import sys
 
 DEBUG = True
 PORT = 8000
@@ -39,6 +40,7 @@ def index():
 @app.route('/r/')
 @app.route('/r/<sub>', methods=['GET', 'POST'])
 def r(sub=None):
+	sub_model = None
 	if sub == None:
 		subs = models.Sub.select().limit(100) # now I am looking into Sub Model
 		return render_template("subs.html", subs=subs) 
@@ -46,24 +48,25 @@ def r(sub=None):
 	else:
 		sub_id = int(sub)
 # Find the right Sub
-		sub = models.Sub.get(models.Sub.id == sub_id) # sub.id gets created implicitly
+
+		sub_model = models.Sub.get_by_id(sub_id) # sub.id gets gets created implicitly
 		
 
 # Define the form for Posts
 		form = PostForm()
-		posts = sub.posts
 
-		if not sub.posts:
+		if not form.validate_on_submit(): #not sub.posts:
 			 #  sub = ForeignKeyField(Sub, backref="posts") 
-			return render_template("sub.html", sub=sub, form=form)
-
+			return render_template("sub.html", sub=sub_model, form=form, posts=sub_model.posts)
+		print("----"+str(sub_model),file=sys.stderr)
 		if form.validate_on_submit():
 			models.Post.create(
 				user=form.user.data.strip(),
 				title=form.title.data.strip(),
 				text=form.text.data.strip(),
-				sub=sub)
+				sub=sub_model)
 				 #sub = ForeignKeyField(Sub, backref="posts" this connects user to that post
+			print("$$$$"+str(sub),file=sys.stderr)
 			flash("New post created")
 # error message
 # return redirect(f'/r/{sub_id}')
